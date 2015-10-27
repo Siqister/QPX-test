@@ -2,9 +2,9 @@ var request = require('request'),
 	fs = require('fs'),
 	csvWriter = require('csv-write-stream'),
 	writer = csvWriter(),
-	api_key = require('/secret');
+	api_key = require('./secret');
 
-var totalReq = 5;
+var totalReq = 100;
 	resReceived = 0;
 
 var requestBody = {
@@ -23,17 +23,17 @@ var requestBody = {
 }; //https://developers.google.com/qpx-express/v1/requests
 
 //Output writable stream
-var output = fs.createWriteStream(__dirname+'/output-1.csv');
+var output = fs.createWriteStream(__dirname+'/output-2.csv');
 writer.pipe(output);
 
 console.log('Scrape QPX api...');
 
-for(var startDate = new Date(2015,11,18),i=0; i<totalReq; i++){
+for(var startDate = new Date(2015,10,15),i=0; i<totalReq; i++){
 	//travel date
 	//for each travel date, issue a request
 	var travelDate = new Date(startDate.getTime() + i*1000*60*60*24);
 
-	(function(newDate){
+	setTimeout(function(newDate){
 
 		var requestBody = {
 			'request':{
@@ -95,7 +95,7 @@ for(var startDate = new Date(2015,11,18),i=0; i<totalReq; i++){
 				}
 
 			});
-	})(travelDate);
+	},i*105,travelDate);
 
 }
 
