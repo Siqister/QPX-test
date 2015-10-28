@@ -23,7 +23,7 @@ var requestBody = {
 }; //https://developers.google.com/qpx-express/v1/requests
 
 //Output writable stream
-var output = fs.createWriteStream(__dirname+'/output-2.csv');
+var output = fs.createWriteStream(__dirname+'/output.csv',{flags:'a'});
 writer.pipe(output);
 
 console.log('Scrape QPX api...');
